@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #222;
+  padding: 1.2em;
+}
+
+.mixer_container {
+  display: flex;
+  gap: 2rem;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.TabContainer {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 160px;
+  max-width: 200px;
+  transition: transform 0.2s ease;
+}
+
+.TabContainer:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgb(0, 0, 0, 0.3);
+}
+
+.heading {
+  margin-bottom: 1rem;
+}
+
+img {
+  width: 40px;
+  margin: 1rem 0;
+}
+
+.VolumeNumber {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.TabTitle {
+  text-align: center;
+  font-size: 0.9em;
+  color: #444;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.VolumeSlider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 120px;
+  height: 8px;
+  background: linear-gradient(to right, #82cfd0 25%, #fff 50%, #fff 100%);
+  border: 2px solid #82cfd0;
+  border-radius: 8px;
+  outline: none;
+  transition: background 450ms ease-in;
+  transform: rotate(-90deg);
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #434343;
+  cursor: pointer;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}

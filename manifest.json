@@ -1,0 +1,21 @@
+{
+  "name": "volume mixer",
+  "description": "a basic volume mixer ",
+  "manifest_version": 3,
+  "version": "1.0",
+  "permissions": ["tabCapture", "offscreen", "tabs", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "offscreen_documents": [
+    {
+      "url": "offscreen.html",
+      "reasons": ["AUDIO_CAPTURE"],
+      "justification": "Capture tab audio for volume control"
+    }
+  ]
+}

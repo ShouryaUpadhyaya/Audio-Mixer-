@@ -10,12 +10,5 @@
   },
   "background": {
     "service_worker": "service_worker.js"
-  },
-  "offscreen_documents": [
-    {
-      "url": "offscreen.html",
-      "reasons": ["AUDIO_CAPTURE"],
-      "justification": "Capture tab audio for volume control"
-    }
-  ]
+  }
 }

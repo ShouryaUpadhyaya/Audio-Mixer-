@@ -71,7 +71,7 @@ let makeDocumentOrNot = async (message) => {
   await getTabsAlreadyCaptured(message);
 
   let res = await chrome.storage.local.get(["activeTabs"]);
-  // console.log("res: ", res);
+  console.log("res: ", res);
   storedActiveTabs = res.activeTabs;
   console.log("tabs to restore: ", storedActiveTabs);
 

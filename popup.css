@@ -1,96 +1,303 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-color: #f4f4f4;
-  color: #222;
-  padding: 1.2em;
-}
-
-.mixer_container {
-  display: flex;
-  gap: 2rem;
-}
-
-.heading {
-  font-weight: bold;
-  font-size: x-large;
+  font-family: "Montserrat", "Roboto";
 }
 
 .TabContainer {
-  background-color: #fff;
+  min-width: 3em;
+  background-color: #5f96bf;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   padding: 1em;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   min-width: 160px;
   max-width: 200px;
-  transition: transform 0.2s ease;
+  min-height: 25em;
+  transition: all 0.3s ease-in-out;
+
+  justify-content: center;
+  align-items: center;
+  gap: 1.3em;
 }
 
 .TabContainer:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgb(0, 0, 0, 0.3);
-}
-
-.heading {
-  margin-bottom: 1rem;
+  box-shadow: 0px 0px 18px 2px rgba(255, 255, 255, 0.25);
 }
 
 img {
   width: 40px;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
 }
 
 .VolumeNumber {
   font-size: 1.1em;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */
 }
 
 .TabTitle {
+  /* gap: 1.2em; */
   text-align: center;
-  font-size: 0.9em;
-  color: #444;
+  font-size: 1em;
+  /* color: #444; */
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;
 }
-
 .VolumeSlider {
+  position: relative;
+  height: 20em;
+  width: 3rem;
+}
+
+.VolumeSlider::before,
+.VolumeSlider::after {
+  display: block;
+  position: absolute;
+  z-index: 99;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.75rem 0;
+  pointer-events: none;
+}
+
+.VolumeSlider::before {
+  content: "+";
+  top: 0;
+}
+
+.VolumeSlider::after {
+  content: "−";
+  bottom: 0;
+}
+
+.VolumeSlider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  width: 20em;
+  height: 3.5rem;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: row-resize;
+}
+
+/* Optional styling when 'step' is defined */
+.VolumeSlider input[type="range"][step] {
+  background-color: transparent;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.2) calc(12.5% - 1px),
+    #05051a 12.5%
+  );
+}
+
+.VolumeSlider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 3.5rem;
+  box-shadow: -20rem 0 0 20rem rgba(255, 255, 255, 0.2);
+  background: transparent;
+  border: none;
+}
+
+.VolumeSlider input[type="range"]::-moz-range-thumb {
+  width: 0;
+  height: 3.5rem;
+  box-shadow: -20rem 0 0 20rem rgba(255, 255, 255, 0.2);
+  background: transparent;
+  border: none;
+}
+
+.error {
+  font-size: large;
+  text-align: center;
+  /* margin-bottom: 1em; */
+  /* margin-top: 1em; */
+  color: #ff6969;
+}
+/* .VolumeSlider {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 120px;
-  margin-bottom: 1rem;
-  position: relative;
+  /* margin-bottom: 1rem; */
+/* position: relative; */
+/* } */
+
+.AudibleNotCaptured {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #444;
+  background-color: #1e1e1e; /* Matching dark tone */
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  min-width: 160px;
+  max-width: 200px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 14px rgba(255, 105, 105, 0.2);
 }
 
-.slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 120px;
-  height: 8px;
-  background: linear-gradient(to right, #82cfd0 25%, #fff 50%, #fff 100%);
-  border: 2px solid #82cfd0;
-  border-radius: 8px;
-  outline: none;
-  transition: background 450ms ease-in;
-  transform: rotate(-90deg);
+.AudibleNotCaptured:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(255, 105, 105, 0.4);
 }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #434343;
+.AudibleNotCaptured img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(1.2);
+}
+
+.AudibleNotCaptured .VolumeNumber {
+  font-weight: bold;
+  color: #82cfd0;
+  font-size: 1em;
+}
+
+.AudibleNotCaptured .error {
+  color: #ff6b6b;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.AudibleNotCaptured .TabTitle {
+  /* flex-grow: 1; */
+  font-size: 1em;
+  color: #ccc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.AudibleNotCaptured button {
+  background-color: #5f96bf;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
 }
+
+.AudibleNotCaptured button:hover {
+  transition: 0.25s ease-in-out;
+  background-color: #fff;
+  color: #5f96bf;
+}
+
+.storedCantCapture {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #444;
+  background-color: #1e1e1e; /* Dark background */
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  color: #f1f1f1; /* Light text for contrast */
+}
+
+.storedCantCapture img {
+  width: 24px;
+  height: 24px;
+}
+
+.storedCantCapture .VolumeNumber {
+  font-weight: bold;
+  color: #ddd;
+}
+
+.storedCantCapture .error {
+  color: #ff6b6b; /* Softer red that pops on dark */
+  font-size: 0.9em;
+}
+
+.storedCantCapture .TabTitle {
+  /* flex-grow: 1; */
+  font-size: 1em;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.storedCantCapture button {
+  background-color: #82cfd0;
+  color: #000;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.storedCantCapture button:hover {
+  background-color: #6bbec0;
+}
+
+/* Knob CSS */
+
+.knob {
+  position: relative;
+  width: 35vmin;
+  height: 35vmin;
+  background: #ccdcec;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+}
+
+.knob.dragging {
+  cursor: grabbing;
+}
+
+.knob-indicator {
+  position: absolute;
+  width: 3%;
+  height: 45%;
+  background: #062e3f;
+  border-radius: 4px;
+  top: 5%;
+  left: 50%;
+  transform-origin: bottom center;
+  z-index: 2;
+}
+
+.value-label {
+  font-family: "Product Sans", sans-serif;
+  position: absolute;
+  bottom: -20%;
+  font-size: 150%;
+  color: #96cdf8;
+  text-align: center;
+  z-index: 3;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Knob css */

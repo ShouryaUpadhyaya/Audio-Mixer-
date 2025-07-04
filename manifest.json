@@ -1,8 +1,8 @@
 {
-  "name": "volume mixer",
-  "description": "a basic volume mixer ",
   "manifest_version": 3,
+  "name": "Audio Mixer",
   "version": "1.0",
+  "description": "A browser extension that modifies the audio output of websites. It allows you to adjust properties like gain, compression, saturation, and equalizer in real-time. Ideal for musicians, content creators, and audiophiles who want more control over their web audio experience (e.g., on YouTube, Spotify Web, or any audio/video site).",
   "permissions": ["tabCapture", "offscreen", "tabs", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "action": {
@@ -10,5 +10,11 @@
   },
   "background": {
     "service_worker": "service_worker.js"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
 }

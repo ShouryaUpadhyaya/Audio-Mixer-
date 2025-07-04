@@ -4,35 +4,83 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Audio Mixer Extension</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="popup.css" />
+    <script src="tailwindcss.js"></script>
   </head>
-  <body>
-    <h1 class="heading">Audio Mixer:</h1>
-    <div class="mixer_container">
-      <div class="TabContainer">
-        <div class="VolumeSlider">
+  <body
+    class="bg-[#101417] text-[#E0E3E8] p-4 min-w-[50em] flex flex-col items-center gap-4"
+  >
+    <h1 class="heading font-bold text-2xl tracking-widest">Audio Control</h1>
+    <h3 class="text-[#95CDF7] font-semibold tracking-widest">
+      Tab volume control
+    </h3>
+    <div class="mixer_container flex gap-4 w-[100%] items-space-between">
+      <!-- <div class="TabContainer"> -->
+      <!-- <div class="VolumeSlider">
+  <body class="bg-gray-100 text-gray-900 p-5 font-sans">
+    <h1 class="text-2xl font-bold mb-4">Audio Mixer:</h1>
+
+    <div class="flex gap-8">
+      <div
+        class="bg-white rounded-xl shadow-md hover:shadow-xl transition-transform duration-200 transform  flex flex-col items-center p-4 w-40 max-w-[200px]"
+      >
+        <div class="flex items-center justify-center h-32 mb-4 relative">
           <input
             type="range"
             name="VolumeSlider"
             min="0"
             max="100"
             value="0"
-            class="slider"
+            class="appearance-none w-32 h-2 bg-gradient-to-r from-cyan-300 via-white to-white border-2 border-cyan-300 rounded-lg outline-none transition-transform rotate-[-90deg]"
           />
-        </div>
+        </div> -->
+      <!-- </div>
+
+        <img
+          src="https://www.gstatic.com/devrel-devsite/prod/vd980a342b8e3e77c07209be506f8385246f583d6eec83ceb07569bbf26f054dc/chrome/images/favicon.png"
+          alt="Tab Icon"
+          class="w-10 my-4"
+        />
+
+        <span class="text-base font-semibold mb-2">100 %</span>
+
+        <span class="error">
+          This Tab is audible but in not currenty captured go to the tab and
+          click on the extenstion icon to capture audio
+        </span>
+        <span class="TabTitle">
+          4AM in Karachi - Talha Anjum | Prod. Umair (Official Audio)
+        </span>
+        <button>Go To tab</button>
+      </div>
+      <div class="TabContainer storedCantCapture">
         <img
           src="https://www.gstatic.com/devrel-devsite/prod/vd980a342b8e3e77c07209be506f8385246f583d6eec83ceb07569bbf26f054dc/chrome/images/favicon.png"
           alt=""
           srcset=""
         />
         <span class="VolumeNumber">100 %</span>
-
-        <span class="TabTitle">
+        <span class="error"> This Tab is stored but cant be captured </span>
+        <span class="TabTitle"> 
+          4AM in Karachi - Talha Anjum | Prod. Umair (Official Audio)
+        <span class="text-sm text-gray-600 text-center break-words">
           Tabtit elasdl kfhas ldkjfh laskdjh fla skdjhfl aksjd hfl a sdl kfjha
           sdlk jfh
         </span>
-      </div>
+        <button>Restore Tab</button> -->
+      <!-- </div> -->
     </div>
+    <!--
+    <div class="knob" id="knob">
+      <div class="knob-indicator" id="indicator"></div>
+      <div class="value-label" id="valueLabel">0</div>
+    </div>
+  -->
+    <script src="popup.js"></script>
   </body>
-  <script src="popup.js"></script>
 </html>

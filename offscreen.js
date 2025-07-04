@@ -1,38 +1,5 @@
 let activeTabs = new Map();
 
-let restoreActiveTabs = async (storedActiveTabs) => {
-  try {
-    // console.log("in restoreActiveTabs", storedActiveTabs);
-
-    for (const tabId in storedActiveTabs) {
-      // console.log("tabId: ", tabId, "storedActiveTabs: ", storedActiveTabs);
-      let streamId = storedActiveTabs[tabId].streamId;
-      let volume = storedActiveTabs[tabId].volume;
-      const media = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          mandatory: {
-            chromeMediaSource: "tab",
-            chromeMediaSourceId: streamId,
-          },
-        },
-      });
-      const output = new AudioContext();
-      const source = output.createMediaStreamSource(media);
-      const gainNode = new GainNode(output);
-      source.connect(gainNode).connect(output.destination);
-      gainNode.gain.maxValue = 6;
-      gainNode.gain.value = volume ?? 1;
-      // console.log("key: ", tabId, "value: ", storedActiveTabs[tabId]);
-      activeTabs.set(tabId, { ...storedActiveTabs[tabId], gainNode: gainNode });
-      // console.log("active tabs: ", activeTabs.get(tabId));
-    }
-  } catch (error) {
-    console.log("error in restore active tabs :", error);
-  }
-
-  console.log("restrored active tab");
-};
-
 let setVolume = async (volume = 1, gainNode) => {
   // console.log("volume", volume);
   // console.log("gainNode", gainNode);
@@ -42,15 +9,8 @@ let setVolume = async (volume = 1, gainNode) => {
 chrome.runtime.onMessage.addListener(async (message) => {
   if (message.target !== "offscreen") return;
 
-  if (message.type === "restore-activeTabs") {
-    let storedActiveTabs = message.storedActiveTabs;
-    // console.log("offscreen inside restore-activeTabs", storedActiveTabs);
-    await restoreActiveTabs(storedActiveTabs);
-    // console.log("restrored active tabs");
-  }
-
   if (message.type === "start-recording") {
-    // console.log("inside start recordig offscreen", message);
+    console.log("inside start recordig offscreen", message);
     let streamId = message.data;
     const media = await navigator.mediaDevices.getUserMedia({
       audio: {
@@ -74,40 +34,55 @@ chrome.runtime.onMessage.addListener(async (message) => {
     // console.log("storedActiveTabs: ", activeTabs[tabId]);
     activeTabs.set(tabId, { source, gainNode, streamId });
     // console.log("active tabs: ", activeTabs.get(tabId));
+    chrome.runtime.sendMessage({
+      type: "refresh-ui",
+    });
   }
   if (message.type === "set-vol") {
     // console.log("message set-vol: ", message);
-    // console.log("activeTabs set-vol: ", activeTabs);
+    console.log("activeTabs set-vol: ", activeTabs);
     let tabId = message.tab.id;
-    // console.log("tabid : ", typeof tabId, tabId);
-    let volume = message.volume / 100;
+    console.log("tabid : ", typeof tabId, tabId);
     let streamId;
     let toStore = {};
-    activeTabs.forEach((value, key) => {
+    activeTabs.forEach((value, keyTabId) => {
       console.log("value:", value);
-      console.log("key:", key);
-      console.log(Number(key) === tabId);
+      // console.log("key:", key);
+      // console.log(Number(key) === tabId);
 
-      if (Number(key) === tabId) {
+      if (Number(keyTabId) === tabId) {
         // console.log("volume is: ", volume);
+        let volume = message.volume / 100;
         streamId = value.streamId;
-        toStore[key] = {
+        toStore[keyTabId] = {
           volume: volume,
           streamId: value.streamId,
+          tabId: keyTabId,
         };
+        setVolume(volume, value.gainNode);
       } else {
-        toStore[key] = {
-          volume: value.volume,
+        volume = value.gainNode.gain.value;
+        console.log(
+          "volume not active tab: ",
+          volume,
+          "streamId: ",
+          value.streamId,
+          "volume: ",
+          value
+        );
+
+        toStore[keyTabId] = {
+          tabId: keyTabId,
           streamId: value.streamId,
+          volume: volume,
         };
       }
 
-      setVolume(volume, value.gainNode);
-
-      console.log("toStore[key]", toStore[key], "key: ", key);
+      console.log("toStore[key]", toStore[keyTabId], "key: ", keyTabId);
     });
-    let str = toStore.toString();
-    console.log("toStore :", str);
+    // let str = toStore.toString();
+    // toStore =
+    console.log("toStore :", toStore);
 
     chrome.runtime.sendMessage({
       type: "set-storage",
